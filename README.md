@@ -17,7 +17,7 @@ Some example prompts and answers:
 
 ### When did Soren get the most scrolls?
 Response:
-```
+
 Based on the provided session notes, the period when Soren acquired the most scrolls was between **August 8th and August 15th, 2024**.
 
 Here’s a breakdown:
@@ -26,11 +26,10 @@ Here’s a breakdown:
 *   **August 15th, 2024:** While examining the tower with Alor, several scrolls were discovered, including: Arcane Lock, Glyph of Warding, Conjure Elementals, and a Spell Scroll of Demiplane. This implies a significant influx of scrolls during this session.
 
 Therefore, the window between August 8th and August 15th saw the most scrolls acquired by Soren.
-```
 
 ### Who is Queen Tesselia and what is her role in the campaign?
 Response:
-```
+
 Okay, let's delve into Queen Tesselia and her role in the campaign, based on the provided session notes.
 
 **Who is Queen Tesselia?**
@@ -57,22 +56,21 @@ Based on the information gathered, here’s a breakdown of her role:
 *   **Elansha’s role:** We are aware of the meeting, but have no information about why she was there.
 
 Overall, Queen Tesselia’s role seems destined to become increasingly significant as the campaign progresses, with her future potentially intertwined with the larger political intrigue surrounding Andor and possibly involving connections to Southern Andor and beyond.
-```
 
 ### How and when did Tririn die?
 Response:
-```
+
 Tririn died during the final confrontation with Athena in the high-tech facility (referenced in the 2025-01-16 session notes). Specifically, after a period of sustained attrition against Polythemis and his cultists (2024-12-05 session notes) and facing a significant influx of robot adds and Athena’s defenses (2025-01-09 session notes), Tririn succumbed after failing a Dexterity saving throw at disadvantage following a Time Stop spell cast during a desperate attempt to escape the collapsing facility.
 
 
 
 There's no additional information provided to determine the precise cause of death beyond that.
-```
+
 
 ### How did the party invent Christmas?
 Response:
-```
-## The Invention of Cherish Eve (or "Nova's Big Show")
+
+**The Invention of Cherish Eve (or "Nova's Big Show")**
 
 The story of how the party “invented” Cherish Eve (essentially, their version of Christmas) is a bit chaotic and born from a series of unusual events and Nova's penchant for spectacle. Here's how it unfolded:
 
@@ -94,4 +92,4 @@ The story of how the party “invented” Cherish Eve (essentially, their versio
 
 *   **The Origin of “Cherish”**: The exact inspiration behind the name "Cherish Eve" remains unclear.
 *   **Detailed Traditions**: Beyond the initial show, few details are given about recurring customs or rituals associated with this invented holiday.
-```
+
