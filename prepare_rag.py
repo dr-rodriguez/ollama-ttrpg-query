@@ -5,7 +5,8 @@ import chromadb
 import ollama
 from read_file import prepare_documents, FILENAME
 
-EMBEDDING_MODEL = "mxbai-embed-large"
+EMBEDDING_MODEL = "mxbai-embed-large"  # 512 context size, but larger number of parameters
+# EMBEDDING_MODEL = "nomic-embed-text"  # larger context size of 2k, but smaller model and yields less accurate results
 
 # Parse the file
 document_list = prepare_documents(FILENAME)

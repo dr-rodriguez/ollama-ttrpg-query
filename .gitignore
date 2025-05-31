@@ -196,5 +196,6 @@ cython_debug/
 # Additional things to ignore
 .env
 .conda
-.chroma
+.chroma*
 credentials.json
+prompt.txt

@@ -3,17 +3,26 @@ Example use of Ollama to query TTRPG notes stored in a vector database
 
 The text file I used is formated in a particular way, so I defined a function to help me parse that. This is in `read_file.py`
 
-The main process is to run `prepare_rag.py` which will take the file and create one document per session to store the notes. 
+The main process is to run `prepare_rag.py` which will take the file and create one document per session to store the notes.   
 This is prepared with Chroma using an Ollama embedding model for future lookups.
 
+For the embedding model, I tried mxbai-embed-large and nomic-embed-text from Ollama.   
+While the later one has a larger context window, it didn't seem to perform as well as mxbai-embed-large.   
+Neither is perfect, but the mxbai one at least tended to identify the correct session for the questions whereas nomic could be way off.
+
 The core of the application, once the RAG is prepared, is to run `query_rag.py`. This takes in an input and answers it. 
-It fetches 3 session notes that are relevant to the input question, and includes the prior/next session notes from the first match. 
-All of this information is passed to Ollama, which by default is running gemma3:12b and should have a 128k context window to store all this.
+It fetches 2 session notes that are relevant to the input question, and includes the prior/next session notes for each. 
+All of this information is passed to Ollama, which by default is running gemma3:12b and should have a 128k context window to store all this.   
+Using 6 total session notes is about 4k tokens, though this is variable (and I may be interpretting ollama's verbose output incorrectly).
 
 Testing has shown moderate accuracy. It clearly would need more information to be fully accurate, but it does get the gist of it.
 
 ## Examples
-Some example prompts and answers:
+Some example prompts and answers.   
+I've iterated on the number of session notes to pass and details of the prompt so some of these answers have changed.   
+Also, there are times the LLM comes to different conclusions with the same information so take it all with a grain of salt.   
+Overall, though, it appears to be approximately accurate and at least points towards the right set of notes.   
+It tends to do more poorly on characters whose details are spread over many sessions (eg, Tesselia), not to mention the usual risk of hallucinations.
 
 ### When did Soren get the most scrolls?
 Response:
@@ -70,26 +79,41 @@ There's no additional information provided to determine the precise cause of dea
 ### How did the party invent Christmas?
 Response:
 
-**The Invention of Cherish Eve (or "Nova's Big Show")**
+The party essentially *invented* Christmas in Helines, leveraging Nova’s storytelling abilities and a healthy dose of magic. Here's how it unfolded, drawing from the session notes:
 
-The story of how the party “invented” Cherish Eve (essentially, their version of Christmas) is a bit chaotic and born from a series of unusual events and Nova's penchant for spectacle. Here's how it unfolded:
-
-**The Seeds of an Idea:** The journey towards this festive occasion began with the discovery of a strange tower, seemingly ripped from time and space. Within it, the party uncovered clues to a wizard obsessed with time travel and a portal circle leading to a mysterious place – the Technocrafts island. This place, and the wizard’s experiments, sparked a connection to a desire for wonder and celebration. 
-
-**Nova’s Vision:** Nova, always seeking opportunities for grand displays, saw potential for a spectacular holiday. Inspired by the wizard's tales and the party's growing fame, she proposed a festive event for the town, drawing a loose parallel to something akin to the winter holidays.
-
-**The Santa Inspiration:** Nova, seemingly having some awareness of the concept of "Santa," decided to incorporate this figure into their celebration. Tririn, always eager to participate, was transformed into a helper elf. June was polymorphed into a reindeer, while Soren conjured a floating disk for transportation. 
-
-**The Grand Performance:**  The day itself was a deliberate spectacle. Nova, with Shar’s assistance, led the "parade," tossing presents (likely scavenged from the tower or acquired elsewhere) while riding the floating disk. The show involved music, light, and a general sense of joyous chaos. This effectively created the visual foundation for the holiday.
-
-**A Touch of Magic:** Soren’s conjurations and June's transformation further enhanced the event’s magical ambiance, reinforcing the feeling of a uniquely festive occasion.
-
-**The Legacy:** The sheer success and uniqueness of the event, as described, cemented its place in the town's memory. The citizens of the town would speak of the event for years to come, further solidifying the party’s role as the "inventors" of Cherish Eve.
+1. **Cherish Eve:** The initial spark came from a holiday called "Cherish Eve," offering an opportunity for celebration.
+2. **Nova's Santa Story:** Nova, with Shar's help, crafted a Santa Claus narrative.
+3. **Magical Assistance:** Soren conjured a Floating Disk, June was polymorphed into a reindeer, and Tririn and Soren were dressed as elves.
+4. **Town Participation:** They staged a public spectacle involving Nova wrestling a Brown Bear (pulled from a Rust Bag of Tricks), Soren playing the lute, and collecting money from onlookers, effectively creating a festive atmosphere.
+5. **Successful Performance:** The resulting parade, where they tossed presents from the floating disk, was a resounding success, promising to be a lasting memory for the town.
 
 
+Essentially, they combined a local holiday, Nova’s storytelling, magical abilities, and public performance to create a unique and memorable "Christmas" experience.
 
-**What’s Missing:** 
 
-*   **The Origin of “Cherish”**: The exact inspiration behind the name "Cherish Eve" remains unclear.
-*   **Detailed Traditions**: Beyond the initial show, few details are given about recurring customs or rituals associated with this invented holiday.
+**Information Missing:**
 
+*   The origins of "Cherish Eve" are not explained.
+
+### Why is the party journeying north from Helines? What is their quest and who gave it to them?
+Response:
+
+The party is journeying north from Helines to find the missing Mayor Maxwell. Lady Poomf informed them of the Mayor's disappearance at a dig site (2025-02-13). The Mayor went north, possibly towards Drakenweld (2025-02-13), and it’s believed he may have some magical training (2025-02-13).
+
+The party’s quest is to locate the Mayor, although the exact nature of his disappearance and potential dangers involved are unclear.
+
+**Information gaps:** It is unknown if the party is seeking the Mayor on behalf of someone else, or if they have a specific agenda related to his whereabouts beyond simply finding him.
+
+### What is the 'Mountain', the creature that destroyed the dwarven home?
+Response:
+
+Based on the session notes, "The Mountain" appears to be a colossal, unique creature – a combination of fire and earth elemental, specifically a **magma elemental** (notes from 2024-02-22). It's described as "titanic sized," "never seen outside the elemental planes," and a situation that occurs "once in a multi-generational situation."
+
+Here's what we know about it from the notes:
+
+*   **Combination Elemental:** It's a fusion of fire and earth, creating a magma elemental. (2024-02-22)
+*   **Rarity:** It's extremely rare, "never been seen outside the elemental planes" and occurs only "once in a multi-generational situation." (2024-02-22)
+*   **Destructive Power:** It destroyed part of the dwarven home and caused the recent earthquakes. (2024-02-22) It is what caused the dwarven home to collapse, prompting a search for trapped miners (2024-01-01). 
+*   **Connection to Ritual:** Goblins seem to be attempting a ritual connected to it, which they don't want the party to witness (2024-02-22).
+
+**Important Note:** The notes don't fully explain the *origin* of this creature or its connection to the history of the goblins and the mountain. It seems to be a creature of immense power and potentially ancient origins, but more information is needed.

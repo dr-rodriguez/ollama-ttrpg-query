@@ -12,6 +12,10 @@ def prepare_documents(filename):
 
     for line in data_list:
         text = line.strip()
+
+        # Sanitize the text (quotation marks, mainly)
+        text = text.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
+
         # Skip empty lines
         if text == "" or text.startswith(("__", "One Shot")):
             continue
