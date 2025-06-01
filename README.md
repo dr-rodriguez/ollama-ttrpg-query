@@ -17,6 +17,8 @@ Using 6 total session notes is about 4k tokens, though this is variable (and I m
 
 Testing has shown moderate accuracy. It clearly would need more information to be fully accurate, but it does get the gist of it.
 
+A walkthrough of the concepts and decisions is available at my blog: https://strakul.blogspot.com/2025/06/data-science-querying-dnd-session-notes.html
+
 ## Running
 
 Once you have the dependencies installed (`pip install -r requirements.txt`) and have ollama running with the various models pulled, 
