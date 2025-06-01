@@ -17,12 +17,63 @@ Using 6 total session notes is about 4k tokens, though this is variable (and I m
 
 Testing has shown moderate accuracy. It clearly would need more information to be fully accurate, but it does get the gist of it.
 
+## Running
+
+Once you have the dependencies installed (`pip install -r requirements.txt`) and have ollama running with the various models pulled, 
+you can run queries through the command line.
+
+Run `python .\query.py --help` and you'll get the following output:   
+```
+usage: query.py [-h] [-n NUM_NOTES] [-d] prompt
+
+Query the DnD notes for relevant information.
+
+positional arguments:
+  prompt                A required string prompt for the program.
+
+options:
+  -h, --help            show this help message and exit
+  -n NUM_NOTES, --num-notes NUM_NOTES
+                        An optional integer specifying the number of notes (default: 2).
+  -d, --disable-extra   An optional flag to disable fetching extra notes from prior/future sessions (default: False).
+```
+
+For example: `python .\query.py -n 8 -d "Which boss fights did Soren participate in? Did he go down in any of them?"`
+Returns:
+```
+Prompt: Which boss fights did Soren participate in? Did he go down in any of them?
+Number of notes: 8
+Disable feching extra notes: True
+Session notes to consider: ['2024-12-12', '2025-01-09', '2025-01-16', '2024-06-06', '2024-05-15', '2024-04-04', '2024-10-31', '2024-03-28']
+Database indices: [48, 49, 50, 27, 24, 18, 45, 17]
+Vector distances: [0.6727909445762634, 0.7138648629188538, 0.7525293231010437, 0.7797321081161499, 0.8304133415222168, 0.8320909738540649, 0.8401113748550415, 0.8490421772003174]
+Here's a breakdown of Soren's boss fight participation based on the provided notes:
+
+**Boss Fights Soren Participated In:**
+
+*   **Fight with Ashton & Gnash (2024-04-04):** Soren was present and played a key role in defeating Ashton, ultimately killing him with magic missiles.
+*   **Fight with Magnolia (2024-03-28):** Soren was present during this fight.
+*   **Fight with Athena (2025-01-09 & 2025-01-16):** Soren was a central target and participant in the multi-session fight against Athena and her robot forces.
+
+**Did Soren Go Down?**
+
+Yes, Soren went down in multiple fights:
+
+*   **Fight with Magnolia (2024-03-28):** Notes indicate he was "at 2/2/2 in spell slots" suggesting he's taken significant damage.
+*   **Fight with Athena (2025-01-09):** Soren went down twice.
+*   **Fight with Athena (2025-01-16):** Soren went down multiple times, notably being targeted and focused down by Athena.
+
+It's unclear if Soren went down during the fight with Ashton, but he did appear to be taking some damage in general.
+```
+This isn't entirely accurate, but it's a suprisingly good approximation. It's essentially the big fights prior to the end of Chapters 1 and 2, though I would have counted two or three more.
+
 ## Examples
 Some example prompts and answers.   
 I've iterated on the number of session notes to pass and details of the prompt so some of these answers have changed.   
 Also, there are times the LLM comes to different conclusions with the same information so take it all with a grain of salt.   
 Overall, though, it appears to be approximately accurate and at least points towards the right set of notes.   
 It tends to do more poorly on characters whose details are spread over many sessions (eg, Tesselia), not to mention the usual risk of hallucinations.
+
 
 ### When did Soren get the most scrolls?
 Response:
@@ -36,42 +87,24 @@ Here’s a breakdown:
 
 Therefore, the window between August 8th and August 15th saw the most scrolls acquired by Soren.
 
-### Who is Queen Tesselia and what is her role in the campaign?
+
+### What is Queen Tesselia's connection to Lady Nevermore?
 Response:
 
-Okay, let's delve into Queen Tesselia and her role in the campaign, based on the provided session notes.
+Based on the session notes, Queen Tesselia and Lady Nevermore have a complex and developing connection, hinting at a deeper history and shared purpose. Here’s what we know:
 
-**Who is Queen Tesselia?**
+*   **Acquaintance:** Nevermore is familiar with Tesselia's mother ("She knows the 'being' in the device that held Tesselia. Knows 'secret codes'"). This suggests Nevermore knew Tesselia's mother before Tesselia’s current age.
+*   **Shared Secret:** Their joint exploration of the ancient facility beneath the castle, facilitated by Tesselia using a code (“TESSELIA”), implies a shared understanding and mission related to the site and its technology.
+*   **Potential Protector/Advisor:** Nevermore has taken on the role of “Regent Advisor” to Tesselia, indicating a protective and guiding role.
+*   **Unclear Depth:** While there’s a clear connection and shared knowledge, the *exact* nature of their relationship (whether it's mentorship, familial, or something else entirely) remains unclear. The "secret codes" Nevermore knows about Tesselia's mother are a major hint, but we don's know what that implies.
 
-Queen Tesselia is the reigning monarch of Tesselia, the capital city of the kingdom of Andor. However, she is only five years old, which fundamentally shapes the entire political landscape of the region. Because of her youth, she's under the regency of her father, a man who is described as a "bastard" and "abusing his position."  This situation creates instability and makes her a pawn in a larger political game.
+It's possible their relationship is significantly deeper than we currently understand, but the notes do not provide sufficient information to definitively state their connection.
 
-**What is her role in the campaign?**
-
-Based on the information gathered, here’s a breakdown of her role:
-
-*   **Political Pawn:** She's essentially a figurehead. Her father, the regent, is the one wielding actual power.  He’s actively trying to maintain control, and his dislike for the adventurer's guild suggests he sees them as a potential threat to his authority. This makes her the focal point for those who want to challenge his rule.
-*   **Target for Manipulation:** Nevermore's plan to overthrow the regent involves positioning herself as a temporary ruler until Tesselia is old enough to abdicate. This suggests a potential future where Tesselia’s abdication, or at least the *idea* of it, becomes a key plot point.
-*   **Symbol of Legitimacy:** Even though she's just a child, Tesselia represents the rightful rule of Andor. This makes her a valuable asset for anyone trying to claim legitimacy. Nevermore knows this and intends to leverage it.
-*   **Future Focus:** The fact that the regent is likely to kill her before she can inherit the throne adds a ticking clock element to the campaign. The party might be compelled to protect her or intervene in the political power struggle.
-*   **Hidden Information:** The notes highlight that there was a meeting between Queen Tesselia and Queen Elnasha. This strongly suggests a connection and potential intrigue beyond the local politics of Tesselia. This is especially interesting when considering the mention of a guild branch being established in Southern Andor.
-
-
-
-**Gaps in Information:**
-
-*   **Queen Tesselia’s personality:** We know nothing about her as an individual. Is she aware of the power struggles around her? Does she have any desires or opinions?
-*   **Her relationship with her father:**  Is she aware of his abuse of power? Does she resent him?
-*   **Her relationship with Nevermore:**  Are they in contact? Does she know Nevermore’s intentions?
-*   **Elansha’s role:** We are aware of the meeting, but have no information about why she was there.
-
-Overall, Queen Tesselia’s role seems destined to become increasingly significant as the campaign progresses, with her future potentially intertwined with the larger political intrigue surrounding Andor and possibly involving connections to Southern Andor and beyond.
 
 ### How and when did Tririn die?
 Response:
 
 Tririn died during the final confrontation with Athena in the high-tech facility (referenced in the 2025-01-16 session notes). Specifically, after a period of sustained attrition against Polythemis and his cultists (2024-12-05 session notes) and facing a significant influx of robot adds and Athena’s defenses (2025-01-09 session notes), Tririn succumbed after failing a Dexterity saving throw at disadvantage following a Time Stop spell cast during a desperate attempt to escape the collapsing facility.
-
-
 
 There's no additional information provided to determine the precise cause of death beyond that.
 
@@ -79,21 +112,17 @@ There's no additional information provided to determine the precise cause of dea
 ### How did the party invent Christmas?
 Response:
 
-The party essentially *invented* Christmas in Helines, leveraging Nova’s storytelling abilities and a healthy dose of magic. Here's how it unfolded, drawing from the session notes:
+The party essentially *invented* Christmas for the town, leveraging Nova’s innate showmanship and their accumulated magical abilities. Here's how, based on the notes:
 
-1. **Cherish Eve:** The initial spark came from a holiday called "Cherish Eve," offering an opportunity for celebration.
-2. **Nova's Santa Story:** Nova, with Shar's help, crafted a Santa Claus narrative.
-3. **Magical Assistance:** Soren conjured a Floating Disk, June was polymorphed into a reindeer, and Tririn and Soren were dressed as elves.
-4. **Town Participation:** They staged a public spectacle involving Nova wrestling a Brown Bear (pulled from a Rust Bag of Tricks), Soren playing the lute, and collecting money from onlookers, effectively creating a festive atmosphere.
-5. **Successful Performance:** The resulting parade, where they tossed presents from the floating disk, was a resounding success, promising to be a lasting memory for the town.
+1. **Nova's Idea:** Nova, known for his spectacle, proposed a Christmas celebration, likely inspired by the concept of "Santa" (which he shared with the town, suggesting a prior knowledge of this tradition).
+2. **The Spectacle:** They combined Nova's performance (wrestling a Brown Bear pulled from a Rust Bag of Tricks – a chaotic but entertaining start) with Soren’s lute playing and Shar and June’s collecting money, effectively turning the event into a festival.
+3. **Magical Transformation:**  Soten dressed the party (and themselves!) as elves, and June was polymorphed into a reindeer. Soren conjured a Floating Disk for transportation, creating a whimsical, magical parade.
+4. **The Presentation:** Nova, with Shar's help, told the story, completing the festive atmosphere.  The successful, memorable nature of the performance ensured the town would “speak about this for years.”
 
+While the notes don't specify a pre-existing holiday tradition, the party clearly crafted a unique and impactful celebration, which the townspeople likely adopted as their own version of Christmas.
 
-Essentially, they combined a local holiday, Nova’s storytelling, magical abilities, and public performance to create a unique and memorable "Christmas" experience.
+**Missing Information:** The notes don’t explain where Nova learned about “Santa”, nor what the original Christmas tradition looked like.
 
-
-**Information Missing:**
-
-*   The origins of "Cherish Eve" are not explained.
 
 ### Why is the party journeying north from Helines? What is their quest and who gave it to them?
 Response:
@@ -103,6 +132,7 @@ The party is journeying north from Helines to find the missing Mayor Maxwell. La
 The party’s quest is to locate the Mayor, although the exact nature of his disappearance and potential dangers involved are unclear.
 
 **Information gaps:** It is unknown if the party is seeking the Mayor on behalf of someone else, or if they have a specific agenda related to his whereabouts beyond simply finding him.
+
 
 ### What is the 'Mountain', the creature that destroyed the dwarven home?
 Response:
@@ -117,3 +147,4 @@ Here's what we know about it from the notes:
 *   **Connection to Ritual:** Goblins seem to be attempting a ritual connected to it, which they don't want the party to witness (2024-02-22).
 
 **Important Note:** The notes don't fully explain the *origin* of this creature or its connection to the history of the goblins and the mountain. It seems to be a creature of immense power and potentially ancient origins, but more information is needed.
+
