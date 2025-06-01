@@ -59,7 +59,7 @@ def main(input: str, num_notes: int=2, disable_extra : bool=False):
         print("Final indexes after adding extra sessions:", indices)
 
     # Use the documents to generate a response
-    prompt = "Using the notes from these session: \n"
+    prompt = "Using the notes from these sessions: \n"
     for d, h in zip(data, headers):
         prompt += f"[START NOTES FROM {h}] \n{d}[END NOTES FROM {h}] \n\n"
     prompt += f"Answer this prompt: {input}, including references to the session notes. \n"
