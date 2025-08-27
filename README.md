@@ -1,7 +1,7 @@
 # ollama-ttrpg-query
 Example use of Ollama to query TTRPG notes stored in a vector database
 
-The text file I used is formated in a particular way, so I defined a function to help me parse that. This is in `read_file.py`
+The text file I used (a Plain text export of Google Docs) is formated in a particular way, so I defined a function to help me parse that. This is in `read_file.py`
 
 The main process is to run `prepare_rag.py` which will take the file and create one document per session to store the notes.   
 This is prepared with Chroma using an Ollama embedding model for future lookups.

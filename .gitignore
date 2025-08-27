@@ -196,6 +196,7 @@ cython_debug/
 # Additional things to ignore
 .env
 .conda
+.vscode
 .chroma*
 credentials.json
 prompt.txt
