@@ -21,7 +21,7 @@ A walkthrough of the concepts and decisions is available at my blog: https://str
 
 ## Running
 
-Once you have the dependencies installed (`pip install -r requirements.txt`) and have ollama running with the various models pulled, 
+Once you have the dependencies installed (`pip install -r requirements.txt` or `uv sync`) and have ollama running with the various models pulled, 
 you can run queries through the command line.
 
 Run `python .\query.py --help` and you'll get the following output:   
@@ -150,3 +150,6 @@ Here's what we know about it from the notes:
 
 **Important Note:** The notes don't fully explain the *origin* of this creature or its connection to the history of the goblins and the mountain. It seems to be a creature of immense power and potentially ancient origins, but more information is needed.
 
+## Troubleshooting
+
+If you have issues with connecting to Ollama, double check OLLAMA_HOST in your environment variables. If running locally, it should be set to `http://localhost:11434`.
